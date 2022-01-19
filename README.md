@@ -1,21 +1,44 @@
-# Lab-application
-Java RMI
+# v0. Device manager: centralized version
 
-Part 1: 
-Device manager : centralized version
-The device manager application provided for this lab is intended to manage devices characterized by a name and
-a status, and provide means to change and supervise the devices states. This application is currently a centralized
-application composed of a single device and a device manager that manages this single device.
+## Application architecture
 
-Part 2:
-Device manager : distributed devices
-Provide a new client/server version of this application composed of a single device manager and several devices
-that can be launched on several hosts. This application should allow the user to enter commands to change the
-device status on the device host, and display the device id and status changes on the device host. Moreover, the
-application should allow the user to enter a command in the form STATUS id that should display the status of
-the device having the given id.
+The application is composed of:
 
-Part 3:
-Distributed device manager : improved version
-Provide a new version of the client/server application that displays the status changes of a device on the hosts of
-all the other devices : the device manager should inform all the devices at each change in a device status.
+* `Device` interface and `DefaultDevice` implementation: represents a
+  device characterized by an identifier, a name, and having a status
+  which value changes
+  
+* `DeviceManager` interface and `DefaultDeviceManager` implementation:
+  a manager that registers devices, and assign them unique identifiers
+  and maintains informations about their names and status
+  
+* `DeviceApp` class: the entry point of the application, that creates
+  a device and a device manager and allows the user to enter commands
+  to observe and change the device status
+  
+## Build and execution
+
+The application is distributed as a Maven project, composed of a
+`src/` directory that contains the java sources and a `pom.xml` file
+that contains the Maven project description
+
+### Project build
+
+To build the project:
+
+    mvn install
+	
+### Application execution
+
+To launch the application:
+
+    java -jar target/devices-0.jar <device_name>
+	
+A device is registered to a device manager, that assigns it an id. The
+id value is 0, as it is the first and only device of the device
+manager. When the application is launched, you can enter the following
+commands: 
+* `status 0`: to display the device status
+* `list`: to list the registered devices ids
+* `start`, `stop`: to change the device status
+* `quit`: to stop the application
