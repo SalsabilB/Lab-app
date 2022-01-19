@@ -1,4 +1,4 @@
-# Lab-app
+# Lab-application
 Java RMI
 
 Part 1: 
